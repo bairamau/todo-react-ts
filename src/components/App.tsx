@@ -1,14 +1,25 @@
-import React from "react";
+import React from "react"
+import { Header, Segment, Container } from "semantic-ui-react"
 
-export interface HelloProps {
-  compiler: string;
-  framework: string;
-}
+import "semantic-ui-css/semantic.min.css"
 
-const Hello = (props: HelloProps) => (
-  <h1>
-    Hello from {props.compiler} and {props.framework}!
-  </h1>
-);
+// export interface HelloProps {
+//   compiler: string;
+//   framework: string;
+// }
 
-export default Hello;
+const App = () => (
+  <div>
+    <Header as="h1" textAlign="center">
+      To do list
+    </Header>
+    <Container>
+      <Segment.Group horizontal>
+        <Segment>left</Segment>
+        <Segment>right</Segment>
+      </Segment.Group>
+    </Container>
+  </div>
+)
+
+export default App
