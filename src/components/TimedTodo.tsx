@@ -17,10 +17,10 @@ const TimedTodo = (props: TimedTodoProps) => (
   >
     <Checkbox checked={props.done} />
     <div>
-      <List.Header content={props.name} />
+      <List.Header style={{ fontWeight: "normal" }} content={props.name} />
       <List.Content>Until {props.date}</List.Content>
     </div>
-    <Button basic icon="times" />
+    <Button size="small" basic icon="times" />
   </List.Item>
 )
 

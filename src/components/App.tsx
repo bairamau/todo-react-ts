@@ -1,7 +1,7 @@
 import React from "react"
 import "semantic-ui-css/semantic.min.css"
 
-import { Header, Segment, Container } from "semantic-ui-react"
+import { Header, Grid, Sticky } from "semantic-ui-react"
 
 import ListWithSearch from "./ListWithSearch"
 import FormWithTabs from "./FormWithTabs"
@@ -94,16 +94,18 @@ class App extends React.Component<AppProps, TodoListProps> {
         <Header as="h1" textAlign="center">
           To do list
         </Header>
-        <Container>
-          <Segment.Group horizontal raised>
+        <Grid stackable container columns="2">
+          <Grid.Column width="5">
             <FormWithTabs
               addPlainHandler={this.addPlainTodo}
               addTimedHandler={this.addTimedTodo}
               addMultipleHandler={this.addMultipleTodo}
             />
+          </Grid.Column>
+          <Grid.Column width="11">
             <ListWithSearch todos={this.state.todos} />
-          </Segment.Group>
-        </Container>
+          </Grid.Column>
+        </Grid>
       </div>
     )
   }

@@ -19,7 +19,7 @@ const PlainTodo = (props: PlainTodoProps) => (
   >
     <Checkbox checked={props.done} />
     <List.Header style={{fontWeight: "normal"}} content={props.name} />
-    <Button basic icon="times" />
+    <Button size="small" basic icon="times" />
   </List.Item>
 )
 

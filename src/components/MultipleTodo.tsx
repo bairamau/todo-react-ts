@@ -16,7 +16,7 @@ const MultipleTodo = (props: MultipleTodoProps) => (
     }}
   >
     <Checkbox checked={props.done} />
-    <List.Header content={props.name} />
+    <List.Header style={{fontWeight: "normal"}} content={props.name} />
     <Button basic icon="times" size="small" />
     <List.Content
       style={{
@@ -24,7 +24,7 @@ const MultipleTodo = (props: MultipleTodoProps) => (
         gridColumn: "2"
       }}
     >
-      <List selection>
+      <List size="small" divided selection>
         {props.items.map(item => (
           <PlainTodo key={item.id} {...item} />
         ))}

@@ -5,6 +5,7 @@ import TodoList, { TodoListProps } from "./TodoList"
 const ListWithSearch = (props: TodoListProps) => (
   <Segment>
     <Input
+      size="large"
       name="Search..."
       icon="search"
       iconPosition="left"

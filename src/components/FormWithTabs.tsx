@@ -15,7 +15,7 @@ const FormWithTabs = (props: FormWithTabsProps) => {
   const [tab, setTab] = useState<number>(0)
 
   return (
-    <Segment>
+    <Segment basic>
       <Menu tabular attached="top">
         <Menu.Item onClick={() => setTab(0)} name="Plain" active={tab === 0} />
         <Menu.Item onClick={() => setTab(1)} name="Timed" active={tab === 1} />
