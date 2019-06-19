@@ -1,22 +1,26 @@
 import React, { useState } from "react"
 import { Form } from "semantic-ui-react"
 
-interface IState {
+export interface TimedFormProps {
+  onSubmit(name: string, date: string): void
+}
+
+interface TimedFormState {
   name: string
   date: string
 }
 
-const TimedForm = () => {
-  const [fields, setFields] = useState<IState>({ name: "", date: "" })
+const TimedForm = (props: TimedFormProps) => {
+  const [fields, setFields] = useState<TimedFormState>({ name: "", date: "" })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
     const value = e.target.value
     setFields(prevFields => ({ ...prevFields, [name]: value }))
   }
-  
+
   return (
-    <Form>
+    <Form onSubmit={() => props.onSubmit(fields.name, fields.date)}>
       <Form.Input
         value={fields.name}
         name="name"

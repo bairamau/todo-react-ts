@@ -31,12 +31,16 @@ interface MultipleTodo extends PlainTodo {
 }
 
 interface AppProps {}
-type AppState = (PlainTodo | TimedTodo | MultipleTodo)[]
+interface AppState {
+  todos: (PlainTodo | TimedTodo | MultipleTodo)[]
+}
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props)
-    this.state = []
+    this.state = {
+      todos: []
+    }
 
     this.addPlainTodo = this.addPlainTodo.bind(this)
     this.addTimedTodo = this.addTimedTodo.bind(this)
@@ -46,40 +50,47 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   addPlainTodo(name: string) {
-    this.setState(prev => [...prev, { id: createId(), name, done: false }])
+    this.setState(prev => ({
+      todos: [...prev.todos, { id: createId(), name, done: false }]
+    }))
   }
 
   addTimedTodo(name: string, date: string) {
-    this.setState(prev => [
-      ...prev,
-      { id: createId(), name, done: false, date }
-    ])
+    this.setState(prev => ({
+      todos: [...prev.todos, { id: createId(), name, done: false, date }]
+    }))
   }
 
   addMultipleTodo(name: string, itemNames: string[]) {
-    this.setState(prev => [
-      ...prev,
-      {
-        id: createId(),
-        name,
-        done: false,
-        items: itemNames.map(itemName => ({
+    this.setState(prev => ({
+      todos: [
+        ...prev.todos,
+        {
           id: createId(),
-          name: itemName,
-          done: false
-        }))
-      }
-    ])
+          name,
+          done: false,
+          items: itemNames.map(itemName => ({
+            id: createId(),
+            name: itemName,
+            done: false
+          }))
+        }
+      ]
+    }))
   }
 
   toggleTodo(id: string) {
-    this.setState(prev =>
-      prev.map(todo => (todo.id === id ? { ...todo, done: !todo.done } : todo))
-    )
+    this.setState(prev => ({
+      todos: prev.todos.map(todo =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo
+      )
+    }))
   }
 
   removeTodo(id: string) {
-    this.setState(prev => prev.filter(item => item.id !== id))
+    this.setState(prev => ({
+      todos: prev.todos.filter(item => item.id !== id)
+    }))
   }
 
   render() {
@@ -90,7 +101,11 @@ class App extends React.Component<AppProps, AppState> {
         </Header>
         <Container>
           <Segment.Group horizontal raised>
-            <FormWithTabs />
+            <FormWithTabs
+              addPlainHandler={this.addPlainTodo}
+              addTimedHandler={this.addTimedTodo}
+              addMultipleHandler={this.addMultipleTodo}
+            />
             <ListWithSearch />
           </Segment.Group>
         </Container>
