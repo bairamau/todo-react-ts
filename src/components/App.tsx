@@ -22,7 +22,7 @@ class App extends React.Component<AppProps, TodoListProps> {
   constructor(props: AppProps) {
     super(props)
     this.state = {
-      todos: []
+      todos: JSON.parse(localStorage.getItem("todos") || "[]")
     }
 
     this.addPlainTodo = this.addPlainTodo.bind(this)
@@ -30,6 +30,10 @@ class App extends React.Component<AppProps, TodoListProps> {
     this.addMultipleTodo = this.addMultipleTodo.bind(this)
     this.toggleTodo = this.toggleTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem("todos", JSON.stringify(this.state.todos))
   }
 
   addPlainTodo(name: string) {

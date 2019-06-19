@@ -9,7 +9,7 @@ export interface TodoListProps {
 }
 
 const TodoList = (props: TodoListProps) => (
-  <List selection size="big">
+  <List divided selection size="big">
     {props.todos.map(todo => {
       if (todo.type === "plain") return <PlainTodo key={todo.id} {...todo as PlainTodoProps} />
       if (todo.type === "timed") return <TimedTodo key={todo.id} {...todo as TimedTodoProps} />
