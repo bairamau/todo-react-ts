@@ -1,15 +1,30 @@
 import React from "react"
 import { List, Checkbox, Button } from "semantic-ui-react"
 
-export interface PlainTodoProps {
+export interface PlainTodo {
   id: string
   name: string
   done: boolean
   type: string
 }
 
-const PlainTodo = (props: PlainTodoProps) => (
+export interface removeHandler {
+  (id: string): void
+}
+
+export interface toggleHandler {
+  (id: string): void
+}
+
+interface PlainTodoProps {
+  todo: PlainTodo
+  removeHandler: removeHandler
+  toggleHandler: toggleHandler
+}
+
+const Plain = (props: PlainTodoProps) => (
   <List.Item
+    onClick={() => props.toggleHandler(props.todo.id)}
     style={{
       display: "grid",
       gridTemplateColumns: "auto 1fr auto",
@@ -17,10 +32,21 @@ const PlainTodo = (props: PlainTodoProps) => (
       gridColumnGap: "6px"
     }}
   >
-    <Checkbox checked={props.done} />
-    <List.Header style={{fontWeight: "normal"}} content={props.name} />
-    <Button size="small" basic icon="times" />
+    <Checkbox checked={props.todo.done} />
+    <List.Header
+      style={{
+        fontWeight: "normal",
+        textDecoration: props.todo.done ? "line-through" : "none"
+      }}
+      content={props.todo.name}
+    />
+    <Button
+      onClick={() => props.removeHandler(props.todo.id)}
+      size="small"
+      basic
+      icon="times"
+    />
   </List.Item>
 )
 
-export default PlainTodo
+export default Plain

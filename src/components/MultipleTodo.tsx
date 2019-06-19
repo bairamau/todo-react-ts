@@ -1,23 +1,28 @@
 import React from "react"
 import { List, Checkbox, Button } from "semantic-ui-react"
-import PlainTodo, { PlainTodoProps } from "./PlainTodo"
+import Plain, { PlainTodo, removeHandler, toggleHandler } from "./PlainTodo"
 
-export interface MultipleTodoProps extends PlainTodoProps {
-  items: PlainTodoProps[]
+export interface MultipleTodo extends PlainTodo {
+  items: PlainTodo[]
 }
 
-const MultipleTodo = (props: MultipleTodoProps) => (
+interface MultipleTodoProps {
+  todo: MultipleTodo
+  removeHandler: removeHandler
+  toggleHandler: toggleHandler
+}
+
+const Multiple = (props: MultipleTodoProps) => (
   <List.Item
     style={{
       display: "grid",
-      gridTemplateColumns: "auto 1fr auto",
+      gridTemplateColumns: "auto 1fr",
       alignItems: "center",
       gridColumnGap: "6px"
     }}
   >
-    <Checkbox checked={props.done} />
-    <List.Header style={{fontWeight: "normal"}} content={props.name} />
-    <Button basic icon="times" size="small" />
+    <Checkbox checked={props.todo.done} />
+    <List.Header style={{ fontWeight: "normal" }} content={props.todo.name} />
     <List.Content
       style={{
         gridRow: "2",
@@ -25,12 +30,17 @@ const MultipleTodo = (props: MultipleTodoProps) => (
       }}
     >
       <List size="small" divided selection>
-        {props.items.map(item => (
-          <PlainTodo key={item.id} {...item} />
+        {props.todo.items.map(item => (
+          <Plain
+            todo={item}
+            removeHandler={props.removeHandler}
+            toggleHandler={props.toggleHandler}
+            key={item.id}
+          />
         ))}
       </List>
     </List.Content>
   </List.Item>
 )
 
-export default MultipleTodo
+export default Multiple
