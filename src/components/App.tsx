@@ -127,6 +127,12 @@ class App extends React.Component<AppProps, TodoList> {
             item.id === id ? { ...item, done: !item.done } : item
           )
         }
+
+        const reducedItems = updatedMultiple.items.reduce(
+          (accum, item) => item.done && accum,
+          true
+        )
+        updatedMultiple.done = reducedItems ? true : false
         return {
           todos: prev.todos.map(todo =>
             todo.id === targetMultiple.id ? updatedMultiple : todo

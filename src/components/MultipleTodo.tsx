@@ -22,7 +22,13 @@ const Multiple = (props: MultipleTodoProps) => (
     }}
   >
     <Checkbox checked={props.todo.done} />
-    <List.Header style={{ fontWeight: "normal" }} content={props.todo.name} />
+    <List.Header
+      style={{
+        fontWeight: "normal",
+        textDecoration: props.todo.done ? "line-through" : "none"
+      }}
+      content={props.todo.name}
+    />
     <List.Content
       style={{
         gridRow: "2",
