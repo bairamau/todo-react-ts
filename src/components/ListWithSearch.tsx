@@ -1,14 +1,17 @@
 import React from "react"
-import { Segment, Input, Icon } from "semantic-ui-react"
-import TodoList from "./TodoList"
+import { Segment, Input } from "semantic-ui-react"
+import TodoList, { TodoListProps } from "./TodoList"
 
-const ListWithSearch = () => (
+const ListWithSearch = (props: TodoListProps) => (
   <Segment>
-    <Input iconPosition="left" placeholder="Search..." fluid>
-      <input />
-      <Icon name="search" />
-    </Input>
-    <TodoList />
+    <Input
+      name="Search..."
+      icon="search"
+      iconPosition="left"
+      placeholder="Search..."
+      fluid
+    />
+    <TodoList todos={props.todos} />
   </Segment>
 )
 

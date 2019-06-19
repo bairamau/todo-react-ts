@@ -5,7 +5,7 @@ import { Header, Segment, Container } from "semantic-ui-react"
 
 import ListWithSearch from "./ListWithSearch"
 import FormWithTabs from "./FormWithTabs"
-import TodoList from "./TodoList"
+import { TodoListProps } from "./TodoList"
 
 function createId() {
   return (
@@ -16,26 +16,9 @@ function createId() {
   )
 }
 
-interface PlainTodo {
-  id: string
-  name: string
-  done: boolean
-}
-
-interface TimedTodo extends PlainTodo {
-  date: string
-}
-
-interface MultipleTodo extends PlainTodo {
-  items: PlainTodo
-}
-
 interface AppProps {}
-interface AppState {
-  todos: (PlainTodo | TimedTodo | MultipleTodo)[]
-}
 
-class App extends React.Component<AppProps, AppState> {
+class App extends React.Component<AppProps, TodoListProps> {
   constructor(props: AppProps) {
     super(props)
     this.state = {
@@ -51,13 +34,19 @@ class App extends React.Component<AppProps, AppState> {
 
   addPlainTodo(name: string) {
     this.setState(prev => ({
-      todos: [...prev.todos, { id: createId(), name, done: false }]
+      todos: [
+        ...prev.todos,
+        { id: createId(), name, done: false, type: "plain" }
+      ]
     }))
   }
 
   addTimedTodo(name: string, date: string) {
     this.setState(prev => ({
-      todos: [...prev.todos, { id: createId(), name, done: false, date }]
+      todos: [
+        ...prev.todos,
+        { id: createId(), name, done: false, date, type: "timed" }
+      ]
     }))
   }
 
@@ -69,10 +58,12 @@ class App extends React.Component<AppProps, AppState> {
           id: createId(),
           name,
           done: false,
+          type: "multiple",
           items: itemNames.map(itemName => ({
             id: createId(),
             name: itemName,
-            done: false
+            done: false,
+            type: "plain"
           }))
         }
       ]
@@ -106,7 +97,7 @@ class App extends React.Component<AppProps, AppState> {
               addTimedHandler={this.addTimedTodo}
               addMultipleHandler={this.addMultipleTodo}
             />
-            <ListWithSearch />
+            <ListWithSearch todos={this.state.todos} />
           </Segment.Group>
         </Container>
       </div>

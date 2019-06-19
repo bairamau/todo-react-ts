@@ -1,13 +1,20 @@
 import React from "react"
 import { List } from "semantic-ui-react"
+import PlainTodo, { PlainTodoProps } from "./PlainTodo"
+import TimedTodo, { TimedTodoProps } from "./TimedTodo"
+import MultipleTodo, { MultipleTodoProps } from "./MultipleTodo"
 
-const items=[1,2,3];
+export interface TodoListProps {
+  todos: (PlainTodoProps | TimedTodoProps | MultipleTodoProps)[]
+}
 
-const TodoList = () => (
-  <List selection size="large">
-    {/* {items.map(num => (
-      <List.Item>{num}</List.Item>
-    ))} */}
+const TodoList = (props: TodoListProps) => (
+  <List selection size="big">
+    {props.todos.map(todo => {
+      if (todo.type === "plain") return <PlainTodo key={todo.id} {...todo as PlainTodoProps} />
+      if (todo.type === "timed") return <TimedTodo key={todo.id} {...todo as TimedTodoProps} />
+      return <MultipleTodo key={todo.id} {...todo as MultipleTodoProps} />
+    })}
   </List>
 )
 
