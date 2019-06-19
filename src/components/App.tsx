@@ -1,7 +1,10 @@
 import React from "react"
+import "semantic-ui-css/semantic.min.css"
+
 import { Header, Segment, Container } from "semantic-ui-react"
 
-import "semantic-ui-css/semantic.min.css"
+import ListWithSearch from "./ListWithSearch"
+import FormWithTabs from "./FormWithTabs"
 
 // export interface HelloProps {
 //   compiler: string;
@@ -14,9 +17,9 @@ const App = () => (
       To do list
     </Header>
     <Container>
-      <Segment.Group horizontal>
-        <Segment>left</Segment>
-        <Segment>right</Segment>
+      <Segment.Group horizontal raised>
+        <FormWithTabs />
+        <ListWithSearch />
       </Segment.Group>
     </Container>
   </div>
