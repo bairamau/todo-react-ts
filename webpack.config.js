@@ -62,10 +62,5 @@ module.exports = {
       warnings: true,
       errors: true
     }
-  },
-
-  externals: {
-    react: "React",
-    "react-dom": "ReactDOM"
   }
 };
