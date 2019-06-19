@@ -37,6 +37,12 @@ class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props)
     this.state = []
+
+    this.addPlainTodo = this.addPlainTodo.bind(this)
+    this.addTimedTodo = this.addTimedTodo.bind(this)
+    this.addMultipleTodo = this.addMultipleTodo.bind(this)
+    this.toggleTodo = this.toggleTodo.bind(this)
+    this.removeTodo = this.removeTodo.bind(this)
   }
 
   addPlainTodo(name: string) {
